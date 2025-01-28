@@ -2,22 +2,27 @@ import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
-const userSchema = new mongoose.Schema({
-  userName: {
-    type: String,
-    required: true,
+const userSchema = new mongoose.Schema(
+  {
+    userName: {
+      type: String,
+      required: true,
+    },
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+      trim: true,
+      toLowerCase: true,
+    },
+    password: {
+      type: String,
+    },
   },
-  email: {
-    type: String,
-    required: true,
-    unique: true,
-    trim: true,
-    toLowerCase: true,
-  },
-  password: {
-    type: String,
-  },
-});
+  {
+    timestamps: true,
+  }
+);
 
 // hash password
 userSchema.pre("save", async function (next) {
