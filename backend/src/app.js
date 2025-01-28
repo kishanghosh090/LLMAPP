@@ -18,6 +18,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 // Routes----------------
+import chatRoute from "./routes/aiChat.routes.js";
+
+app.use("/api/v1/chats", chatRoute);
 
 // error handler-------------
 app.use((err, req, res, next) => {

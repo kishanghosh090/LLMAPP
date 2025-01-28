@@ -1,6 +1,6 @@
-import { ApiError } from "../utils/ApiError";
-import { ApiResponse } from "../utils/ApiResponse";
-import { apiRes } from "../utils/aiResponse";
+import { ApiError } from "../utils/ApiError.js";
+import { ApiResponse } from "../utils/ApiResponse.js";
+import { apiRes } from "../utils/aiResponse.js";
 import { Chat } from "../models/chat.models.js";
 
 // user chat
@@ -32,3 +32,4 @@ const userChat = async (req, res, next) => {
     return next(new ApiError(500, error.message));
   }
 };
+export { userChat };

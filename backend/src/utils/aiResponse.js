@@ -1,16 +1,15 @@
-import OpenAI from "openai";
+import "dotenv/config";
 
-const openai = new OpenAI({
-  baseURL: "https://api.deepseek.com",
-  apiKey: process.env.DEEPSEEK_API_KEY,
-});
+import { GoogleGenerativeAI } from "@google/generative-ai";
+const apiRes = async (text) => {
+  const genAI = new GoogleGenerativeAI(process.env.API_KEY);
+  const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
-const apiRes = async (message) => {
-  const completion = await openai.chat.completions.create({
-    messages: [{ role: "system", content: message }],
-    model: "deepseek-chat",
-  });
-  console.log(completion.choices[0].message.content);
+  const prompt = text;
+
+  const result = await model.generateContent(prompt);
+  console.log(result.response.text());
+  return result.response.text();
 };
 
 export { apiRes };
