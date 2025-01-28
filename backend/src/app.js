@@ -17,9 +17,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-// Routes----------------
+// Routes middleware----------------
+import userRoute from "./routes/user.routes.js";
 import chatRoute from "./routes/aiChat.routes.js";
 
+app.use("/api/v1/users", userRoute);
 app.use("/api/v1/chats", chatRoute);
 
 // error handler-------------
