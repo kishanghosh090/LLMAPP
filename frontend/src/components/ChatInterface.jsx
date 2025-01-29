@@ -20,7 +20,7 @@ function ChatInterface({ messages, addMessage }) {
       const model = genAI.getGenerativeModel({ model: "gemini-pro" });
       const result = await model.generateContent(input);
       const response = await result.response;
-      const text = response.text();
+      const text = response.text().replaceAll("\n", "").replaceAll("*", "");
       addMessage({ text, sender: "ai" });
     } catch (error) {
       console.error("Error:", error);
@@ -34,7 +34,7 @@ function ChatInterface({ messages, addMessage }) {
   };
 
   return (
-    <div className="flex-1 flex flex-col p-5">
+    <div className="flex-1 flex flex-col p-5 mt-10">
       <div className="flex-1 overflow-y-auto mb-4">
         {messages.map((message, index) => (
           <div
