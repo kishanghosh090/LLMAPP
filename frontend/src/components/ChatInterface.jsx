@@ -1,19 +1,19 @@
 // components/ChatInterface.js
-import React, { useState } from 'react';
-import { GoogleGenerativeAI } from '@google/generative-ai';
+import React, { useState } from "react";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
-const genAI = new GoogleGenerativeAI(process.env.REACT_APP_GEMINI_API_KEY);
+const genAI = new GoogleGenerativeAI("AIzaSyCUJE_BHjI41G-9VuJo8Y6Rgq-MZTPLBpg");
 
 function ChatInterface({ messages, addMessage }) {
-  const [input, setInput] = useState('');
+  const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!input.trim()) return;
 
-    addMessage({ text: input, sender: 'user' });
-    setInput('');
+    addMessage({ text: input, sender: "user" });
+    setInput("");
     setIsLoading(true);
 
     try {
@@ -21,10 +21,13 @@ function ChatInterface({ messages, addMessage }) {
       const result = await model.generateContent(input);
       const response = await result.response;
       const text = response.text();
-      addMessage({ text, sender: 'ai' });
+      addMessage({ text, sender: "ai" });
     } catch (error) {
-      console.error('Error:', error);
-      addMessage({ text: 'An error occurred. Please try again.', sender: 'ai' });
+      console.error("Error:", error);
+      addMessage({
+        text: "An error occurred. Please try again.",
+        sender: "ai",
+      });
     }
 
     setIsLoading(false);
@@ -34,9 +37,12 @@ function ChatInterface({ messages, addMessage }) {
     <div className="flex-1 flex flex-col p-5">
       <div className="flex-1 overflow-y-auto mb-4">
         {messages.map((message, index) => (
-          <div key={index} className={`mb-4 p-3 rounded-lg ${
-            message.sender === 'user' ? 'bg-blue-100 ml-auto' : 'bg-gray-100'
-          } max-w-3/4`}>
+          <div
+            key={index}
+            className={`mb-4 p-3 rounded-lg ${
+              message.sender === "user" ? "bg-blue-100 ml-auto" : "bg-gray-100"
+            } max-w-3/4`}
+          >
             {message.text}
           </div>
         ))}

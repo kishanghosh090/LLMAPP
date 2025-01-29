@@ -11,8 +11,8 @@ function App() {
   };
 
   return (
-    <div className="flex h-screen">
-      <Sidebar />
+    <div className="flex h-screen overflow-hidden">
+      {/* <Sidebar /> */}
       <ChatInterface messages={messages} addMessage={addMessage} />
     </div>
   );
