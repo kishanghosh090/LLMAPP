@@ -3,7 +3,7 @@ import React from "react";
 import { IoMdSettings } from "react-icons/io";
 function Sidebar() {
   return (
-    <div className="w-64 bg-gray-100 p-5 h-full pt-10 flex flex-col justify-around">
+    <div className="w-50 bg-gray-100 p-5 h-full pt-10 flex flex-col justify-around">
       <div className="mb-6">
         <h2 className="text-2xl font-bold">Gemini Clone</h2>
         <button
@@ -28,12 +28,12 @@ function Sidebar() {
         </ul>
       </div>
       <div className=" flex  bg-blue-300 justify-around items-center p-1 rounded-4xl">
-        <div className="text-2xl">
-          <IoMdSettings />
-        </div>
         <div>
           {" "}
           <h3 className=" ">kishan</h3>
+        </div>
+        <div className="text-2xl">
+          <IoMdSettings />
         </div>
       </div>
     </div>
