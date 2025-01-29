@@ -35,7 +35,7 @@ function App() {
   };
 
   return (
-    <div className="flex h-screen overflow-hidden">
+    <div className="flex h-[90vh] overflow-hidden">
       <div
         className="absolute text-3xl top-2 left-2 cursor-pointer"
         onClick={() => {
