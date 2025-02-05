@@ -78,7 +78,7 @@ function ChatInterface({ messages, addMessage }) {
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder="Ask anything..."
-          className="flex-1 p-2 border border-gray-300  focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-l-full text-white"
+          className="flex-1 p-2 border border-gray-300  focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-l-full text-white z-[100]"
         />
         <button
           type="submit"

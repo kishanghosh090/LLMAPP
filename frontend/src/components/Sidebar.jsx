@@ -6,7 +6,7 @@ import { IoMdSettings } from "react-icons/io";
 function Sidebar({ isLogin }) {
   return (
     <>
-      <div className="w-[80vw] bg-gray-100 p-5 z-[10000] h-full pt-10 flex flex-col justify-around">
+      <div className="w-[80vw] md:w-[30vw] bg-gray-100 p-5 z-[10000] h-full pt-10 flex flex-col justify-around">
         <h2 className="text-2xl font-bold">DeepWave AI</h2>
         {isLogin ? (
           <div>
