@@ -7,11 +7,11 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: "http://localhost:3000",
-        // target: "https://fullstack-scocial-media-app.onrender.com",
-        // secure: false,
-        // changeOrigin: true,
-        // rewrite: (path) => path.replace(/^\/api/, ""),
+        // target: "http://localhost:3000",
+        target: "https://llmapp.onrender.com",
+        secure: false,
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ""),
       },
     },
   },
