@@ -23,6 +23,7 @@ export default function Login() {
   const navigate = useNavigate();
   const handleSubmit = (e) => {
     e.preventDefault();
+    toast.loading("loading...", { id: "loading" });
     axios
       .post("api/v1/users/login", data)
       .then((res) => {
@@ -33,6 +34,7 @@ export default function Login() {
           email: "",
           password: "",
         });
+        toast.dismiss("loading");
         setTimeout(() => {
           navigate("/", { replace: true });
         }, 500);
@@ -40,6 +42,7 @@ export default function Login() {
       .catch((err) => {
         console.log(err);
         toast.error(err.response.data.message);
+        toast.dismiss("loading");
         return;
       });
   };

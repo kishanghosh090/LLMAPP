@@ -24,6 +24,7 @@ export default function Resgister() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    toast.loading("loading...", { id: "loading" });
     axios
       .post("api/v1/users/register", data)
       .then((res) => {
@@ -34,6 +35,7 @@ export default function Resgister() {
           email: "",
           password: "",
         });
+        toast.dismiss("loading");
         setTimeout(() => {
           navigate("/Login");
         }, 1000);
