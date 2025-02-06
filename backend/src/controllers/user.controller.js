@@ -53,10 +53,7 @@ const login = async (req, res, next) => {
     }
 
     const token = user.getJwtToken();
-    const cookieOptions = {
-      httpOnly: true,
-      secure: true,
-    };
+    const cookieOptions = {};
     return res
       .status(200)
       .cookie("token", token, cookieOptions)
@@ -82,6 +79,22 @@ const logout = async (req, res, next) => {
   }
 }; // register user
 
+// get user
+const getUser = async (req, res, next) => {
+  try {
+    const userId = req.user._id;
+    const user = await User.findById(userId);
+    if (!user) {
+      return next(new ApiError(400, "User not found"));
+    }
+    return res
+      .status(200)
+      .json(new ApiResponse(200, user, "User fetched successfully"));
+  } catch (error) {
+    next(new ApiError(500, error.message));
+  }
+};
+
 //update profilr
 
 const updateProfile = async (req, res, next) => {
@@ -98,4 +111,4 @@ const updateProfile = async (req, res, next) => {
   }
 };
 
-export { register, login, logout, updateProfile };
+export { register, login, logout, updateProfile, getUser };

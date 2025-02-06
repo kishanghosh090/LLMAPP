@@ -3,8 +3,8 @@ import React from "react";
 import { Button } from "@heroui/react";
 import { IoMdSettings } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
-function Sidebar({ isLogin }) {
-  console.log(isLogin);
+function Sidebar({ isLogin, data }) {
+  console.log(data);
 
   const navigate = useNavigate();
   return (
@@ -27,42 +27,9 @@ function Sidebar({ isLogin }) {
             <div className="mt-6">
               <h3 className="text-lg font-semibold mb-2">Recent</h3>
               <ul className="space-y-2 h-[60vh] overflow-auto">
-                <li className="cursor-pointer hover:bg-gray-200 p-2 rounded overflow-auto">
+                {/* <li className="cursor-pointer hover:bg-gray-200 p-2 rounded overflow-auto">
                   What is React?
-                </li>
-                <li className="cursor-pointer hover:bg-gray-200 p-2 rounded">
-                  How to use Gemini API?
-                </li>
-                <li className="cursor-pointer hover:bg-gray-200 p-2 rounded overflow-auto">
-                  What is React?
-                </li>
-                <li className="cursor-pointer hover:bg-gray-200 p-2 rounded">
-                  How to use Gemini API?
-                </li>
-                <li className="cursor-pointer hover:bg-gray-200 p-2 rounded overflow-auto">
-                  What is React?
-                </li>
-                <li className="cursor-pointer hover:bg-gray-200 p-2 rounded">
-                  How to use Gemini API?
-                </li>
-                <li className="cursor-pointer hover:bg-gray-200 p-2 rounded overflow-auto">
-                  What is React?
-                </li>
-                <li className="cursor-pointer hover:bg-gray-200 p-2 rounded">
-                  How to use Gemini API?
-                </li>
-                <li className="cursor-pointer hover:bg-gray-200 p-2 rounded overflow-auto">
-                  What is React?
-                </li>
-                <li className="cursor-pointer hover:bg-gray-200 p-2 rounded">
-                  How to use Gemini API?
-                </li>
-                <li className="cursor-pointer hover:bg-gray-200 p-2 rounded overflow-auto">
-                  What is React?
-                </li>
-                <li className="cursor-pointer hover:bg-gray-200 p-2 rounded">
-                  How to use Gemini API?
-                </li>
+                </li> */}
               </ul>
             </div>
             <form
@@ -79,7 +46,7 @@ function Sidebar({ isLogin }) {
               >
                 <div>
                   {" "}
-                  <h3 className=" ">kishan</h3>
+                  <h3 className=" ">{data.userName}</h3>
                 </div>
                 <div className="text-2xl">
                   <IoMdSettings />

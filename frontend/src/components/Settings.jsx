@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { MdEmail } from "react-icons/md";
 import { FaRegUser } from "react-icons/fa";
 import { MdLogout } from "react-icons/md";
@@ -9,6 +9,22 @@ import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
 
 function Settings() {
+  const [data, setData] = useState({});
+  const [isOpen, setIsOpen] = useState(false);
+  useEffect(() => {
+    toast.loading("loading...", { id: "loading" });
+    axios
+      .get("api/v1/users/getUser")
+      .then((res) => {
+        // console.log(res.data.data);
+        setIsOpen(true);
+        toast.dismiss("loading");
+        setData(res.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
   const logout = () => {
     axios
       .get("api/v1/users/logout")
@@ -24,52 +40,58 @@ function Settings() {
         toast.error(err.response.data.message || "something went wrong");
       });
   };
+
   const navigate = useNavigate();
   return (
-    <motion.div
-      initial={{ opacity: 0, transform: "translateX(100%)" }}
-      animate={{ opacity: 1, transform: "translateX(0)" }}
-      transition={{ duration: 0.2 }}
-      className="p-8 h-screen dark:bg-neutral-950 text-white overflow-hidden"
-    >
+    <>
       <Toaster />
-      <div className="flex justify-start items-center dark:bg-neutral-800  gap-2.5 p-4 rounded-2xl text-bold mb-10 ">
-        <FaArrowLeft
-          onClick={() => {
-            navigate("/", { replace: true });
-          }}
-        />
-        <span>Settings</span>
-      </div>
-      <div className="flex justify-start  flex-col gap-2">
-        <h1>Profile</h1>
-        <div className="flex justify-between dark:bg-neutral-800 flex-col gap-2.5 p-4 rounded-2xl text-bold">
-          <div className="flex justify-between ">
-            <span className="flex gap-2 items-center">
-              <FaRegUser />
-              username
-            </span>
-            <span>kishan</span>
-          </div>
-          <div className="flex justify-between  ">
-            <span className="flex gap-2 items-center">
-              <MdEmail />
-              Email
-            </span>
-            <span>kishan@gmail.com</span>
-          </div>
-        </div>
-        <div
-          onClick={logout}
-          className="flex justify-statrt items-center dark:bg-neutral-800  gap-2.5 p-4 rounded-2xl text-bold "
+      {isOpen && (
+        <motion.div
+          initial={{ opacity: 0, transform: "translateX(100%)" }}
+          animate={{ opacity: 1, transform: "translateX(0)" }}
+          transition={{ duration: 0.2 }}
+          className="p-8 h-screen dark:bg-neutral-950 text-white overflow-hidden"
         >
-          <span>
-            <MdLogout />
-          </span>
-          <span>Log out</span>
-        </div>
-      </div>
-    </motion.div>
+          <Toaster />
+          <div className="flex justify-start items-center dark:bg-neutral-800  gap-2.5 p-4 rounded-2xl text-bold mb-10 ">
+            <FaArrowLeft
+              onClick={() => {
+                navigate("/", { replace: true });
+              }}
+            />
+            <span>Settings</span>
+          </div>
+          <div className="flex justify-start  flex-col gap-2">
+            <h1>Profile</h1>
+            <div className="flex justify-between dark:bg-neutral-800 flex-col gap-2.5 p-4 rounded-2xl text-bold">
+              <div className="flex justify-between ">
+                <span className="flex gap-2 items-center">
+                  <FaRegUser />
+                  username
+                </span>
+                <span>{data.userName}</span>
+              </div>
+              <div className="flex justify-between  ">
+                <span className="flex gap-2 items-center">
+                  <MdEmail />
+                  Email
+                </span>
+                <span>{data.email}</span>
+              </div>
+            </div>
+            <div
+              onClick={logout}
+              className="flex justify-statrt items-center dark:bg-neutral-800  gap-2.5 p-4 rounded-2xl text-bold "
+            >
+              <span>
+                <MdLogout />
+              </span>
+              <span>Log out</span>
+            </div>
+          </div>
+        </motion.div>
+      )}
+    </>
   );
 }
 

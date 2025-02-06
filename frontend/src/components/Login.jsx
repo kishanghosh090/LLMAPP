@@ -34,7 +34,7 @@ export default function Login() {
           password: "",
         });
         setTimeout(() => {
-          navigate("/");
+          navigate("/", { replace: true });
         }, 500);
       })
       .catch((err) => {

@@ -8,7 +8,9 @@ export default defineConfig({
     proxy: {
       "/api": {
         target: "http://localhost:3000",
-        changeOrigin: true,
+        // target: "https://fullstack-scocial-media-app.onrender.com",
+        // secure: false,
+        // changeOrigin: true,
         // rewrite: (path) => path.replace(/^\/api/, ""),
       },
     },

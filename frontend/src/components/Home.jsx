@@ -5,11 +5,13 @@ import ChatInterface from "./ChatInterface";
 import { BiMenuAltLeft } from "react-icons/bi";
 import { animate, motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function Home() {
   const [messages, setMessages] = useState([]);
   const [isClosed, setIsClosed] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
+  const [data, setData] = useState({});
 
   const navigate = useNavigate();
   useEffect(() => {
@@ -18,7 +20,16 @@ function Home() {
       navigate("/Login");
     }
     setIsLogin(true);
-  });
+    axios
+      .get("api/v1/users/getUser")
+      .then((res) => {
+        // console.log(res.data.data);
+        setData(res.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
   const pageVariants = {
     initial: {
       opacity: 0,
@@ -56,7 +67,7 @@ function Home() {
             className="w-[100vw] h-[100vh] duration-150 transation-all fixed z-[1000]"
           >
             {" "}
-            <Sidebar isLogin={isLogin} />
+            <Sidebar isLogin={isLogin} data={data} />
           </motion.div>
         )}
         <div className="flex h-[90vh] z-50 overflow-hidden dark:bg-neutral-950">
