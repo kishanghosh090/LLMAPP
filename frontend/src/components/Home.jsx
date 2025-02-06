@@ -1,19 +1,24 @@
 // App.js
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Sidebar from "./Sidebar";
 import ChatInterface from "./ChatInterface";
 import { BiMenuAltLeft } from "react-icons/bi";
 import { animate, motion } from "framer-motion";
-import "@fontsource/roboto/300.css";
-import "@fontsource/roboto/400.css";
-import "@fontsource/roboto/500.css";
-import "@fontsource/roboto/700.css";
+import { useNavigate } from "react-router-dom";
 
 function Home() {
   const [messages, setMessages] = useState([]);
   const [isClosed, setIsClosed] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
 
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!document.cookie.split("=")[1]) {
+      console.log(document.cookie.split("=")[1]);
+      navigate("/Login");
+    }
+    setIsLogin(true);
+  });
   const pageVariants = {
     initial: {
       opacity: 0,
@@ -40,34 +45,36 @@ function Home() {
   };
 
   return (
-    <div className="dark:bg-neutral-950 h-screen z-[1000]">
-      {isClosed && (
-        <motion.div
-          variants={pageVariants}
-          initial="initial"
-          animate="animate"
-          exit="exit"
-          className="w-[100vw] h-[100vh] duration-150 transation-all fixed z-[1000]"
-        >
-          {" "}
-          <Sidebar isLogin={isLogin} />
-        </motion.div>
-      )}
-      <div className="flex h-[90vh] z-50 overflow-hidden dark:bg-neutral-950">
-        <div
-          className={`absolute text-3xl top-2 left-2 cursor-pointer  ${
-            isClosed === true ? "text-black" : "text-white"
-          } z-[1000]`}
-          onClick={() => {
-            setIsClosed(!isClosed);
-          }}
-        >
-          <BiMenuAltLeft />
-        </div>
+    { isLogin } && (
+      <div className="dark:bg-neutral-950 h-screen z-[1000]">
+        {isClosed && (
+          <motion.div
+            variants={pageVariants}
+            initial="initial"
+            animate="animate"
+            exit="exit"
+            className="w-[100vw] h-[100vh] duration-150 transation-all fixed z-[1000]"
+          >
+            {" "}
+            <Sidebar isLogin={isLogin} />
+          </motion.div>
+        )}
+        <div className="flex h-[90vh] z-50 overflow-hidden dark:bg-neutral-950">
+          <div
+            className={`absolute text-3xl top-2 left-2 cursor-pointer  ${
+              isClosed === true ? "text-black" : "text-white"
+            } z-[1000]`}
+            onClick={() => {
+              setIsClosed(!isClosed);
+            }}
+          >
+            <BiMenuAltLeft />
+          </div>
 
-        <ChatInterface messages={messages} addMessage={addMessage} />
+          <ChatInterface messages={messages} addMessage={addMessage} />
+        </div>
       </div>
-    </div>
+    )
   );
 }
 
