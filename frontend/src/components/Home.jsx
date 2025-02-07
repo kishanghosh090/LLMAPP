@@ -72,7 +72,7 @@ function Home() {
         <div className="flex h-[90vh] z-50 overflow-hidden dark:bg-neutral-950">
           <div
             className={`absolute text-3xl top-2 left-2 cursor-pointer  ${
-              isClosed === true ? "text-black" : "text-white"
+              isClosed === true ? "text-black " : " dark:text-white text-black"
             } z-[1000]`}
             onClick={() => {
               setIsClosed(!isClosed);

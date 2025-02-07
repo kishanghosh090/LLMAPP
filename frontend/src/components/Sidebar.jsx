@@ -4,7 +4,6 @@ import { Button } from "@heroui/react";
 import { IoMdSettings } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 function Sidebar({ isLogin, data }) {
- 
   const navigate = useNavigate();
   return (
     <>
@@ -63,7 +62,7 @@ function Sidebar({ isLogin, data }) {
             >
               <Button
                 type="submit"
-                className="w-full dark:bg-neutral-950 p-6 rounded-2xl text-white"
+                className="w-full bg-neutral-950 dark:bg-neutral-950 p-6 rounded-2xl text-white"
               >
                 Login
               </Button>

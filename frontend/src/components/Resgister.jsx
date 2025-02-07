@@ -45,9 +45,9 @@ export default function Resgister() {
       });
   };
   return (
-    <div className="flex items-center justify-center dark:bg-neutral-950 h-screen text-white flex-col">
+    <div className="flex items-center justify-center dark:bg-neutral-950 h-screen dark:text-white text-black flex-col">
       <Toaster position="top-center" reverseOrder={false} />
-      <h1 className="text-3xl text-white text-center mb-3 p-2   dark:text-white border border-gray-300 rounded-t-2xl w-[80%] mx-auto mt-5">
+      <h1 className="text-3xl dark:text-white text-black text-center mb-3 p-2   dark:text-white border border-gray-300 rounded-t-2xl w-[80%] mx-auto mt-5">
         Sign Up
       </h1>
       <form
@@ -56,7 +56,7 @@ export default function Resgister() {
       >
         <div>
           <div className="mb-2 block">
-            <label htmlFor="username" className="text-white">
+            <label htmlFor="username" className="dark:text-white text-black">
               username
             </label>
           </div>
@@ -65,14 +65,14 @@ export default function Resgister() {
             type="text"
             placeholder="Enter your username"
             required
-            className="border border-gray-300 text-white rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+            className="border border-gray-300 dark:text-white text-black rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
             value={data.userName}
             onChange={(e) => setData({ ...data, userName: e.target.value })}
           />
         </div>
         <div>
           <div className="mb-2 block">
-            <label htmlFor="email" className="text-white">
+            <label htmlFor="email" className="dark:text-white text-black">
               Emial
             </label>
           </div>
@@ -81,14 +81,14 @@ export default function Resgister() {
             type="email"
             placeholder="name@gamil.com"
             required
-            className="border border-gray-300 text-white rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+            className="border border-gray-300 dark:text-white text-black rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
             value={data.email}
             onChange={(e) => setData({ ...data, email: e.target.value })}
           />
         </div>
         <div>
           <div className="mb-2 block">
-            <label htmlFor="password" className="text-white">
+            <label htmlFor="password" className="dark:text-white text-black">
               Password
             </label>
           </div>
@@ -97,7 +97,7 @@ export default function Resgister() {
             type="password"
             placeholder="password"
             required
-            className="border border-gray-300 text-white rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+            className="border border-gray-300 dark:text-white text-black rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
             value={data.password}
             onChange={(e) => setData({ ...data, password: e.target.value })}
           />
@@ -105,7 +105,7 @@ export default function Resgister() {
 
         <Button
           type="submit"
-          className="dark:bg-white rounded-4xl dark:text-black"
+          className="dark:bg-white  bg-black text-white rounded-4xl dark:text-black"
         >
           Sign Up
         </Button>
