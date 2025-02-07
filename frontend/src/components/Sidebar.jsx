@@ -4,8 +4,7 @@ import { Button } from "@heroui/react";
 import { IoMdSettings } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 function Sidebar({ isLogin, data }) {
-  console.log(data);
-
+ 
   const navigate = useNavigate();
   return (
     <>
@@ -35,7 +34,7 @@ function Sidebar({ isLogin, data }) {
             <form
               onSubmit={(e) => {
                 e.preventDefault();
-                navigate("/settings");
+                navigate("/settings", { state: data });
               }}
             >
               <Button

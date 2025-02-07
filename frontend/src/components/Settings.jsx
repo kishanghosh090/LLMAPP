@@ -3,28 +3,21 @@ import { MdEmail } from "react-icons/md";
 import { FaRegUser } from "react-icons/fa";
 import { MdLogout } from "react-icons/md";
 import { FaArrowLeft } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
 
 function Settings() {
+  const location = useLocation();
+  const userData = location.state;
+
   const [data, setData] = useState({});
   const [isOpen, setIsOpen] = useState(false);
   useEffect(() => {
-    toast.loading("loading...", { id: "loading" });
-    axios
-      .get("api/v1/users/getUser")
-      .then((res) => {
-        // console.log(res.data.data);
-        setIsOpen(true);
-        toast.dismiss("loading");
-        setData(res.data.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+    setData(userData);
+    setIsOpen(true);
+  });
   const logout = () => {
     axios
       .get("api/v1/users/logout")
@@ -32,7 +25,7 @@ function Settings() {
         console.log(res.data.message);
         toast.success(res.data.message);
         setTimeout(() => {
-          navigate("/Login");
+          navigate("/", { replace: true });
         }, 1000);
       })
       .catch((err) => {

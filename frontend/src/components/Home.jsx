@@ -15,20 +15,19 @@ function Home() {
 
   const navigate = useNavigate();
   useEffect(() => {
-    if (!document.cookie.split("=")[1]) {
+    if (document.cookie.split("=")[1]) {
       console.log(document.cookie.split("=")[1]);
-      navigate("/Login");
+
+      setIsLogin(true);
+      axios
+        .get("api/v1/users/getUser")
+        .then((res) => {
+          setData(res.data.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
-    setIsLogin(true);
-    axios
-      .get("api/v1/users/getUser")
-      .then((res) => {
-        // console.log(res.data.data);
-        setData(res.data.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
   }, []);
   const pageVariants = {
     initial: {
