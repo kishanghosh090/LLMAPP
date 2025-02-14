@@ -69,11 +69,23 @@ const login = async (req, res, next) => {
 const googleLogin = async (req, res, next) => {
   try {
     const { code } = req.query;
+
+    if (!code) {
+      return next(new ApiError(400, "Code is required"));
+    }
+
     const googleRes = await oAuth2Client.getToken(code);
     oAuth2Client.setCredentials(googleRes.tokens);
+    if (!googleRes.tokens.access_token) {
+      return next(new ApiError(400, "Access token not found"));
+    }
     const userResponse = await axios.get(
       `https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=${googleRes.tokens.access_token}`
     );
+
+    if (!userResponse.data) {
+      return next(new ApiError(400, "Email not found"));
+    }
 
     const user = await User.findOne({ email: userResponse.data.email });
     if (!user) {
