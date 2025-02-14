@@ -107,7 +107,7 @@ const googleLogin = async (req, res, next) => {
       .cookie("token", token)
       .json(new ApiResponse(200, user, "User logged in successfully"));
   } catch (error) {
-    console.log(error);
+    return next(new ApiError(500, error.message));
   }
 };
 
