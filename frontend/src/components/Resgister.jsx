@@ -6,7 +6,8 @@ import { NavLink, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 import { toast, Toaster } from "react-hot-toast";
-
+import GoogleLogin from "./GoogleLogin";
+import { GoogleOAuthProvider, useGoogleLogin } from "@react-oauth/google";
 export default function Resgister() {
   const [data, setData] = useState({
     userName: "",
@@ -44,6 +45,7 @@ export default function Resgister() {
         console.log(err);
       });
   };
+
   return (
     <div className="flex items-center justify-center dark:bg-neutral-950 h-screen dark:text-white text-black flex-col">
       <Toaster position="top-center" reverseOrder={false} />
@@ -105,7 +107,7 @@ export default function Resgister() {
 
         <Button
           type="submit"
-          className="dark:bg-white  bg-black text-white rounded-4xl dark:text-black"
+          className="dark:bg-white  bg-black p-2 text-white rounded-4xl dark:text-black"
         >
           Sign Up
         </Button>
@@ -116,6 +118,7 @@ export default function Resgister() {
       >
         Already have an account?
       </NavLink>
+      <GoogleLogin />
     </div>
   );
 }

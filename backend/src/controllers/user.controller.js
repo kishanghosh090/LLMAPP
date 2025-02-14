@@ -1,6 +1,8 @@
 import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { User } from "../models/user.models.js";
+import { oAuth2Client } from "../utils/googleConfig.js";
+import axios from "axios";
 
 // register user
 const register = async (req, res, next) => {
@@ -62,6 +64,40 @@ const login = async (req, res, next) => {
     next(new ApiError(500, error.message));
   }
 };
+// google login
+
+const googleLogin = async (req, res, next) => {
+  try {
+    const { code } = req.query;
+    const googleRes = await oAuth2Client.getToken(code);
+    oAuth2Client.setCredentials(googleRes.tokens);
+    const userResponse = await axios.get(
+      `https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=${googleRes.tokens.access_token}`
+    );
+
+    const user = await User.findOne({ email: userResponse.data.email });
+    if (!user) {
+      const newUser = await User.create({
+        userName: userResponse.data.given_name,
+        email: userResponse.data.email,
+        password: userResponse.data.id,
+      });
+      const token = newUser.getJwtToken();
+      return res
+        .status(200)
+        .cookie("token", token)
+        .json(new ApiResponse(200, newUser, "Account created successfully"));
+    }
+
+    const token = user.getJwtToken();
+    return res
+      .status(200)
+      .cookie("token", token)
+      .json(new ApiResponse(200, user, "User logged in successfully"));
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 // logout user
 const logout = async (req, res, next) => {
@@ -111,4 +147,34 @@ const updateProfile = async (req, res, next) => {
   }
 };
 
-export { register, login, logout, updateProfile, getUser };
+// delete user account
+
+const deleteUserAccount = async (req, res, next) => {
+  try {
+    const userId = req.user._id;
+    if (!userId) {
+      return next(new ApiError(400, "User not found"));
+    }
+
+    const user = await User.findByIdAndDelete(userId);
+    if (!user) {
+      return next(new ApiError(400, "User not found"));
+    }
+    return res
+      .clearCookie("token")
+      .status(200)
+      .json(new ApiResponse(200, user, "User deleted successfully"));
+  } catch (error) {
+    return next(new ApiError(500, error.message || "something went wrong"));
+  }
+};
+
+export {
+  register,
+  login,
+  logout,
+  updateProfile,
+  getUser,
+  deleteUserAccount,
+  googleLogin,
+};

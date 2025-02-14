@@ -8,6 +8,7 @@ import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useDisclosure } from "@mantine/hooks";
 import { LoadingOverlay, Group, Box, MantineProvider } from "@mantine/core";
+import GoogleLogin from "./GoogleLogin";
 
 export default function Login() {
   const [data, setData] = useState({
@@ -110,6 +111,7 @@ export default function Login() {
         >
           Create Account
         </NavLink>
+        <GoogleLogin />
       </div>
     </MantineProvider>
   );

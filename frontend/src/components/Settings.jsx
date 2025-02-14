@@ -24,7 +24,6 @@ function Settings() {
     axios
       .get("api/v1/users/logout")
       .then((res) => {
-        console.log(res.data.message);
         toast.success(res.data.message);
         setTimeout(() => {
           navigate("/", { replace: true });

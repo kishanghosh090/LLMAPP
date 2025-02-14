@@ -12,12 +12,10 @@ function Home() {
   const [isClosed, setIsClosed] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
   const [data, setData] = useState({});
-
   const navigate = useNavigate();
+
   useEffect(() => {
     if (document.cookie.split("=")[1]) {
-      console.log(document.cookie.split("=")[1]);
-
       setIsLogin(true);
       axios
         .get("api/v1/users/getUser")
