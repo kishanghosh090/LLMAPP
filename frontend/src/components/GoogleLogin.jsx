@@ -25,9 +25,8 @@ function GoogleLogin() {
     } catch (error) {
       toast.dismiss("loading");
       console.log("====================================");
-      console.log(error);
+      console.log(error.response.data.message);
       console.log("====================================");
-      alert(error);
       return;
     }
   };
